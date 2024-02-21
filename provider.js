@@ -15,10 +15,15 @@ console.log(
   await provider.lookupAddress("0x34aA3F359A9D614239015126635CE7732c18fDF3")
 );
 console.log("---------------------------------------------");
-const balance = await provider.getBalance("atg.eth");
-const balanceToEthFromGWEI = ethers.formatEther(balance);
-console.log("atg.eth Balance has =>", balanceToEthFromGWEI);
+// will get balance in BigNumber
+const atgBalance = await provider.getBalance("atg.eth");
+console.log("atg.eth Balance in WEI =>", atgBalance.toString());
 console.log("---------------------------------------------");
+// we convert that BigNumber using below method to get that value in wei i.e 1 WEI = 10e-18 ETH
+const balanceToEthFromGWEI = ethers.formatEther(atgBalance);
+console.log("atg.eth Balance has =>", balanceToEthFromGWEI, "ETH");
+console.log("---------------------------------------------");
+// we convert the ETH again to WEI using the below method
 console.log(
   `${balanceToEthFromGWEI} to wei => ${ethers.parseEther(balanceToEthFromGWEI)}`
 );
