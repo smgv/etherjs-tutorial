@@ -17,9 +17,10 @@ console.log(
 console.log("---------------------------------------------");
 // will get balance in BigNumber
 const atgBalance = await provider.getBalance("atg.eth");
+console.log("atg.eth Balance in WEI =>", atgBalance);
 console.log("atg.eth Balance in WEI =>", atgBalance.toString());
 console.log("---------------------------------------------");
-// we convert that BigNumber using below method to get that value in wei i.e 1 WEI = 10e-18 ETH
+// we convert that BigNumber using below method to get that value in wei i.e 1 WEI = 10e-18 ETH we get value in ETH
 const balanceToEthFromGWEI = ethers.formatEther(atgBalance);
 console.log("atg.eth Balance has =>", balanceToEthFromGWEI, "ETH");
 console.log("---------------------------------------------");

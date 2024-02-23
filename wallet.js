@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import "dotenv/config";
 
 const wallet = ethers.Wallet.createRandom();
 
@@ -15,4 +16,14 @@ for (let i = 0; i < 10; i++) {
   console.log("address", i, myWallet.address);
   console.log("private key", i, myWallet.privateKey);
 }
+console.log("---------------------------------------------");
+
+const WALLET = new ethers.Wallet(process.env.MY_WALLET_PRIVATE_KEY);
+console.log("My Wallet Public Key (from private key)", WALLET.address);
+console.log("---------------------------------------------");
+const signature = await WALLET.signMessage("Hello Ethers!");
+console.log("Signed Message?", signature);
+console.log("---------------------------------------------");
+const signerAddress = ethers.verifyMessage("Hello Ethers!", signature);
+console.log("signerAddress", signerAddress);
 console.log("---------------------------------------------");
