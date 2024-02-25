@@ -13,7 +13,7 @@
 
 ## ethers.js
 
-```
+```javascript
 npm i ethers
 ```
 
@@ -21,7 +21,7 @@ The ethers.js library aims to be a complete and compact library for interacting 
 
 ## First we connect to ethereum node using JSON-RPC Provider by passing the Infura URL
 
-```
+```javascript
 const infuraURL = `https://mainnet.infura.io/v3/${process.env.INFURA_KEY}`;
 const provider = new ethers.JsonRpcProvider(infuraURL);
 ```
@@ -30,7 +30,7 @@ JSON-RPC (Remote Procedure Call) is a protocol used by Ethereum nodes to communi
 
 ## How to get the current blockNumber from the ethereum node
 
-```
+```javascript
 await provider.getBlockNumber();
 ```
 
@@ -38,23 +38,23 @@ BlockNumber in an Ethereum node is a unique identifier assigned to each block in
 
 ## How to resolve ENS name?
 
-```
-await provider.resolveName("myAdd.eth")
+```javascript
+await provider.resolveName("myAdd.eth");
 ```
 
 ENS stands for Ethereum Name Service. It is a decentralized domain name system built on the Ethereum blockchain. ENS provides a way to map human-readable domain names (like "myAdd.eth") to Ethereum addresses, smart contract addresses, content hashes, and other resources on the Ethereum network.
 
 ## How to get the ENS from the given address?
 
-```
-await provider.lookupAddress("0x34aA3F359A9D614239015126635CE7732c18fDF3")
+```javascript
+await provider.lookupAddress("0x34aA3F359A9D614239015126635CE7732c18fDF3");
 ```
 
 Resolves to the ENS name associated for the given address passed i.e 0x34aA3F359A9D614239015126635CE7732c18fDF3 -> atg.eth
 
 ## How to get balance from the given address?
 
-```
+```javascript
 const balance = await provider.getBalance("0x36f19dd57975E2F5B431Cf7dF4A02652e4272c68")
 console.log(balance) -> 734315368681667777n
 console.log(balance.toString()) -> 734315368681667777
@@ -64,7 +64,7 @@ The above method will return the Balance in BigNumberish format using so convert
 
 ## To get balance in ETH we can use formatEther from ethers.js
 
-```
+```javascript
 ethers.formatEther(balance);
 ```
 
@@ -72,15 +72,15 @@ formatEther: This function is used to convert a BigNumber object representing an
 
 ## How to get balance again from ETH to WEI?
 
-```
-ethers.parseEther(balance)
+```javascript
+ethers.parseEther(balance);
 ```
 
 parseEther: This function is used to convert a string or a number representing an amount of Ether into a BigNumber object that represents the same amount in wei, the smallest unit of Ether. For example, if you pass '1.5', it will return a BigNumber object representing 1.5 Ether in wei.
 
 ## How to manage and create Wallet and its account?
 
-```
+```javascript
 const wallet = ethers.Wallet.createRandom();
 ```
 
@@ -88,22 +88,22 @@ Creates a new random HDNodeWallet using the available cryptographic random sourc
 
 ## How to get the created Wallet Public Address and Private Key?
 
-```
-wallet.address // '0x..'
-wallet.privateKey // '0x...'
+```javascript
+wallet.address; // '0x..'
+wallet.privateKey; // '0x...'
 ```
 
 ## How to get the create wallet mnemonic phrase?
 
-```
-const walletMnemonicPhrase = wallet.mnemonic.phrase // 12 words list
+```javascript
+const walletMnemonicPhrase = wallet.mnemonic.phrase; // 12 words list
 ```
 
 ## How to create no of accounts using the above mnemonic phrase?
 
 eg. creating extra accounts in one metamask accounts. -> Acc1, Acc2, Acc3, .... Acc[N]. It basically adds index starting from 0, 1, 2 .... N
 
-```
+```javascript
 for (let i = 0; i < 10; i++) {
   myWallet = ethers.Wallet.fromPhrase(walletMnemonicPhrase);
   console.log("address", i, myWallet.address);
@@ -113,15 +113,15 @@ for (let i = 0; i < 10; i++) {
 
 ## How to connect to wallet with private key?
 
-```
-const WalletAddress = new ethers.Wallet(process.env.MY_WALLET_PRIVATE_KEY)
+```javascript
+const WalletAddress = new ethers.Wallet(process.env.MY_WALLET_PRIVATE_KEY);
 ```
 
 ## How to signMessage and VerifyMessage using the above WalletAddress?
 
 When we talk about signing and verifying messages using a wallet in the context of Ethereum, we are referring to cryptographic operations that allow parties to prove ownership of an Ethereum address without revealing the private key associated with that address. This process is commonly used for various purposes such as authentication, message integrity verification, and secure communication.
 
-```
+```javascript
 # Sign Message
 const signature = await WALLET.signMessage("Hello Ethers!");
 console.log(signature)
@@ -130,7 +130,7 @@ console.log(signature)
 0x2f453ff8c605556951345ac5b53ece75caa4fbd191aa10497171d3d59d1ef5441c0a8642c1ef2c3732b5bda705844dfe65ff0ef47c3d9f83568987fa47f31c731c
 ```
 
-```
+```javascript
 # Verify Message
 const signerAddress = ethers.verifyMessage("Hello Ethers!", signature);
 console.log(signerAddress)
@@ -170,40 +170,38 @@ Return the address of the private key that produced the signature during signing
 - He has access to Alice's Ethereum address.
 - Bob receives the signed message from Alice and verifies it against Alice's Ethereum address.
 
-```
-Code
-
+```javascript
 // Alice's side (Message Signer)
-const { ethers } = require('ethers');
+const { ethers } = require("ethers");
 
 // Alice's Ethereum address and private key
-const aliceAddress = '0x....'; // Alice's Ethereum address
-const alicePrivateKey = '...'; // Alice's private key
+const aliceAddress = "0x...."; // Alice's Ethereum address
+const alicePrivateKey = "..."; // Alice's private key
 
 // Create a provider (you can use Infura or any Ethereum node provider)
-const provider = new ethers.providers.JsonRpcProvider('YOUR_JSON_RPC_URL');
+const provider = new ethers.providers.JsonRpcProvider("YOUR_JSON_RPC_URL");
 
 // Connect to wallet with Alice's private key
 const wallet = new ethers.Wallet(alicePrivateKey, provider);
 
 // Message to be signed
-const message = 'Hello, Bob! This is Alice.';
+const message = "Hello, Bob! This is Alice.";
 
 // Sign the message
 const signature = await wallet.signMessage(message);
-console.log('Alice\'s signature:', signature);
+console.log("Alice's signature:", signature);
 
 // Bob's side (Message Verifier)
 // Given: Alice's Ethereum address and the signed message
-const aliceAddressFromBob = '0x....'; // Alice's Ethereum address
-const signedMessageFromAlice = '...'; // Signed message from Alice
+const aliceAddressFromBob = "0x...."; // Alice's Ethereum address
+const signedMessageFromAlice = "..."; // Signed message from Alice
 
 // Verify the message
 const signer = ethers.utils.verifyMessage(message, signature);
 if (signer === aliceAddressFromBob) {
-    console.log('Message signature verified. It is from Alice.');
+  console.log("Message signature verified. It is from Alice.");
 } else {
-    console.log('Message signature verification failed. It may be spoofed.');
+  console.log("Message signature verification failed. It may be spoofed.");
 }
 ```
 
@@ -229,7 +227,7 @@ if (signer === aliceAddressFromBob) {
 
 ## How to Send Transaction ?
 
-```
+```javascript
 import { ethers } from "ethers";
 import "dotenv/config";
 
