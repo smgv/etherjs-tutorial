@@ -17,7 +17,7 @@
 
 To learn all above [please click here](./ChapterOne/Readme.md).
 
-### ✏️ Chapter Two - Contracts, AIB
+### ✏️ Chapter Two - Contracts, AIB - (WIP)
 
 [Contract](https://docs.ethers.org/v6/api/contract/): abstraction of code that has been deployed to the blockchain. If you want to talk to a contract, your making a transaction that interacts with the smart contract
 
