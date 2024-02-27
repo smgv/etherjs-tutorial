@@ -86,7 +86,7 @@ const wallet = ethers.Wallet.createRandom();
 
 Creates a new random HDNodeWallet using the available cryptographic random source.
 
-## How to get the created Wallet Public Address and Private Key?
+## How to get the created Wallet Address and Private Key?
 
 ```javascript
 wallet.address; // '0x..'
@@ -136,7 +136,7 @@ const signerAddress = ethers.verifyMessage("Hello Ethers!", signature);
 console.log(signerAddress)
 
 # output
-0x36f19dd57975E2F5B431Cf7dF4A02652e4272c68 -> Public Address
+0x36f19dd57975E2F5B431Cf7dF4A02652e4272c68 -> Wallet Address
 Return the address of the private key that produced the signature during signing for message
 ```
 
