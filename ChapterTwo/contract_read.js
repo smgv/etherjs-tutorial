@@ -7,6 +7,13 @@ const rinkebyProvider = getProvider(INFURA_TYPE.POLYGON_MUMBAI);
 
 const Contract = new ethers.Contract(nftAddress, ABI, rinkebyProvider);
 
-const mintPrice = await Contract.MINT_PRICE();
-
-console.log("Mint Price", mintPrice);
+console.log("---------------------------------------------");
+const tokenURI = await Contract.defaultTokenUri();
+console.log("DefaultTokenUri:-", tokenURI);
+console.log("---------------------------------------------");
+const name = await Contract.name();
+console.log("Token Name:-", name);
+console.log("---------------------------------------------");
+const Owner = await Contract.owner();
+console.log("Token Owner:-", Owner);
+console.log("---------------------------------------------");
